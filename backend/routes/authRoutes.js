@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { check } = require("express-validator"); // assuming you have this middleware
-const { signUp, login, logout } = require("../controllers/authController");
+const { signUpController, loginController, logoutController } = require("../controllers/authController");
 const Validate = require("../middlewares/validate");
 
 const router = express.Router();
@@ -22,19 +22,19 @@ router.post(
     .isLength({ min: 8 })
     .withMessage("Must be at least 8 chars long"),
   Validate, // custom middleware to handle validation errors
-  signUp
+  signUpController
 );
 
 // Login route
 router.post(
   "/login",
   Validate,
-  login
+  loginController
 );
 // Logout route
 router.get(
   "/logout",
-  logout
+  logoutController
 );
 
 module.exports = router;
