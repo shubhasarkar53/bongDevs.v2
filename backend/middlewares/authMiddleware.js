@@ -10,7 +10,7 @@ exports.authenticateUser = async (req, res, next) => {
     const authHeader = req.headers["cookie"];
     if (!authHeader) {
       const error = new Error("auth header not found");
-      error.status = 204;
+      error.status = 401;
       throw error;
     }
 
@@ -23,7 +23,7 @@ exports.authenticateUser = async (req, res, next) => {
     const isBlacklisted = await findIsBlackListed(accessToken);
     if (isBlacklisted) {
       const error = new Error("BlackListed Token used.");
-      error.status = 204;
+      error.status = 403;
       throw error;
     }
 
